@@ -1,0 +1,168 @@
+<main >
+<!--onload="listerLangues(), ajoutCollege(), viderChamps()"-->
+  <div class="main">
+    <h3>CREATION SERIE (à mettre dans header)</h3>
+      <!--Formulaire-->
+      <section class="section premiereSection">
+        
+          <form id="formSerie" method="post" autocomplete="off" >
+              <!--DIV ISBN-13 -->
+              <h2>ISBN</h2>
+              <div class="formRaw">
+                  
+                  <p>Commencez par entrer l'ISBN </p>      
+                  <div class="autocomplete flex1">
+                        <input class="focus" type="text"  name="isbn" id="isbn" maxlength="13" value={{serie.ISBN}} required>
+                  <!--onfocus="listerISBN()" onkeypress="return verif(event)"-->
+                  </div>
+                  <div class="divFormBtn">
+                      <button type="button" class="btn btn-modifier float-right" name="verifier">Vérifier</button>
+                  <!--onclick="verifierISBN()" -->
+                  </div>
+              </div>
+
+              <!--DIV EDITION-->
+              <section id="edition">
+                  <h2>Édition</h2><!--mettre en uppercase dans css-->
+
+                  <!--IMAGE DE COUVERTURE-->      
+                  <div class="formRaw">
+                      <div class="editionCouv">
+                          <div id="containerCouv">
+                              <img id="imageCouv" src="" alt="Couverture"/>
+                          </div>
+                          <label class="custom-file-upload">
+                              <input type="file" onchange="document.getElementById('imageCouv').src = window.URL.createObjectURL(this.files[0])"/>
+                              Parcourir...
+                          </label>
+                      </div>
+                      <div class="editionTexte">
+                          <div class="formRaw">
+                              <label for="titreSerie">Titre</label>
+                              <div class="autocomplete flex1">
+                                  <input class="focus" type="text" id="titreSerie" name="titreSerie" placeholder="Titre" required>
+                              <!-- onfocus="listerTitres()"-->
+                              </div>
+                          </div>
+                          <div class="formRaw">
+                              <label for="auteurSerie">Auteur</label>
+                              <div class="autocomplete flex1">     
+                                  <input class="focus" type="text"  id="auteurSerie" name="auteurSerie" placeholder="Auteur" required>
+                              <!--onfocus="listerAuteurs()"-->
+                              </div>
+                          </div>
+                          <div class="formRaw">
+                              <div class="formRaw">
+                                  <label for="editeurSerie">Editeur</label>
+                                  <div class="autocomplete flex2">  
+                                      <input class="focus" type="text" id="editeurSerie" name="editeurSerie" placeholder="Editeur" required>
+                                  <!-- onfocus="listerEditeurs()"-->
+                                  </div> 
+                              </div>
+                              <div class="formRaw flex">                          
+                                  <label for="langueSerie">Langue</label>
+                                  <div class="autocomplete">                           
+                                    <select class="colDroite focus selectpicker formSelect" id="langueSerie" name="langueSerie" required></select>
+                                  
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="formRaw">
+                              <div class="formRaw">
+                                  <label for="collectionSerie">Collection</label>
+                                  <div class="autocomplete flex2">     
+                                      <input class="focus" type="text"  id="collectionSerie" name="collectionSerie" placeholder="Collection" required>
+                                  <!--onfocus="listerCollections()"-->
+                                </div>
+                              </div>
+                              <div class="formRaw flex">                   
+                                  <label for="datePublication">Publication</label>
+                                  <div class="autocomplete">
+                                      <input class="colDroite focus" type="date"  id="datePublication" name="datePublication" required>
+                                  <!--onfocus="listerPublications()"-->
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="divFormBtn">
+                              <button type="button" class="btn btn-modifier float-right">Suite</button>
+                              <!--onclick="verifierEdition()" -->
+                          </div>
+                      </div>
+                  </div>
+              </section>
+              
+<!--================================================================= DIV SÉRIE =============================================================================-->
+              <section id="serie">
+                  <h2>Série</h2>
+                  <div class="formRaw">
+                      <div class="formRaw">
+                          <label for="college">Collège</label>
+                          <div class="autocomplete flex2">  
+                              <select class="autocomplete focus selectpicker formSelect" name="college" id="college"></select>
+                          </div> 
+                                             
+                          <label for="codeBarre">Code barre</label>
+                          <div class="autocomplete flex2">                  
+                              <input class="inputTaille focus" type="text"  name="codeBarre" placeholder="Code barre"> 
+                          <!--onkeypress="return verif(event)"-->
+                          </div>
+                      </div>
+                  </div>
+                  <div class="formRaw">
+                      <div class="formRaw">
+                          <label for="status">Disponibilité</label>
+                          <div class="autocomplete flex2">  
+                              <select class="autocomplete focus selectpicker formSelect"  name="status">
+                                  <!--onchange="status()"-->
+                                  <option>Exportable</option>
+                                  <option>Interne</option>
+                              </select>
+                          </div> 
+                          <label id="labelExemplaire" for="nombreExemplaire">Nombre d'exemplaires</label>
+                          <div class="autocomplete flex2">                   
+                              <input class="inputTaille focus" type="number"  id="nbExemplaire" name="nombreExemplaire" value="30" step="1" min="0" max="99" style="width:4em" required> <!-- Utilisation de la fonction vérif--> 
+                          <!--onkeypress="return verif(event)"-->
+                          </div>                           
+                      </div>
+                  </div>                      
+                  <div id="niveau" style="width:525px">     
+                      <div class="formRaw">
+                          <label>Niveau(x)</label>
+                          <label class="container">6<sup>ème</sup>
+                              <input type="checkbox" name="interest" value="6">
+                              <span class="checkmark"></span>
+                          </label>
+                          <label class="container">5<sup>ème</sup>
+                              <input type="checkbox" name="interest" value=5>
+                              <span class="checkmark"></span>
+                          </label>
+                          <label class="container">4<sup>ème</sup>
+                              <input type="checkbox" name="interest" value="4">
+                              <span class="checkmark"></span>
+                          </label>
+                          <label class="container">3<sup>ème</sup>
+                              <input type="checkbox" name="interest" value="3">
+                              <span class="checkmark"></span>
+                          </label>
+                      </div>
+                  </div>
+              </section>
+              <!--VALIDATION CREATION-->
+              <div id="enregistrement">
+                  <div class="divFormBtn">
+                      <button class="btn btn-modifier float-right" type="submit" id="btnEnregistrer" name="enregistrer">Enregistrer</button>
+                  </div>
+              </div>
+          </form>
+
+      </section>
+      
+      <footer>
+          <!-- Bouton retour haut de page? -->
+      </footer>
+  </div>
+
+  <!--Script HTML/CSS Header-->
+  <!--<script src='../js/header.js'></script>-->
+  <script src='../assets/js/creationSerie.js'></script>
+</main>

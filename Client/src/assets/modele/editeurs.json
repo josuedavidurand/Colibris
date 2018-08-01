@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Hachette Éducation",
+        "collection": [
+            "Bibliocollège"
+        ]
+    },
+    {
+        "name": "Editions Flammarion",
+        "collection": [
+            "Flammarion jeunesse"
+        ]
+    },
+    {
+        "name": "La Table Ronde",
+        "collection": [
+            "La petite Vermillon"
+        ]
+    },
+    {
+        "name": "Le Livre de Poche",
+        "collection": [
+            "Libretti"
+        ]
+    },
+    {
+        "name": "Gallimard Jeunesse",
+        "collection": [
+            "Folio Cadet premiers romans"
+        ]
+    },
+    {
+        "name": "Casterman",
+        "collection": [
+            "Alix"
+        ]
+    },
+    {
+        "name": "Gallimard",
+        "collection": [
+            "Folio Junior"
+        ]
+    },
+    {
+        "name": "Livre de Poche Jeunesse",
+        "collection": [
+            "Livre de Poche Jeunesse"
+        ]
+    },
+    {
+        "name": "Pocket",
+        "collection": [
+            "Classique"
+        ]
+    },
+    {
+        "name": "Flammarion",
+        "collection": [
+            "Etonnants Classiques"
+        ]
+    },
+    {
+        "name": "J'ai lu - Librio",
+        "collection": [
+            "Librio littérature"
+        ]
+    },
+    {
+        "name": "CreateSpace Independent Publishing Platform",
+        "collection": [
+            "No name"
+        ]
+    }
+]

@@ -1,0 +1,41 @@
+<!-- <section>
+  <h2>Connexion</h2>
+  <form (ngSubmit)="soumission(fm)" #fm="ngForm" >
+    <label>Identifiant  </label>
+    <input name="id" [(ngModel)]="user.mailConnexion" required #idCtrl="ngModel">
+    <div *ngIf="idCtrl.invalid.untouched">Renseignez l'id</div>
+    <label>Mot de passe  </label>
+    <input name="mdp" [(ngModel)]="user.mdpConnexion" required>
+    <p>{{user.mailConnexion}}  {{user.mdpConnexion}}</p>
+    <button>Test Id</button>
+    <button type="submit" [disabled]="fm.invalid">Envoi</button>
+  </form>
+  <button (click)="auth.deconnect()">Déconnexion</button>
+</section> -->
+
+<div class="mainIndex pageLogin">
+    <section>
+        <div id="logo">
+            <img src="../../assets/images/coLibris-header.png" alt="logo">
+            <p>Echanges de séries de livres entre les collèges des Pyrénées Atlantiques</p>
+        </div>
+        <form (ngSubmit)="soumission(fm)" #fm='ngForm' id="login">
+            <h1>Connectez-vous</h1>
+            <div id="divInputLogin">
+                <input [(ngModel)]="user.mailConnexion" id="username" class="inputLogin" name="mailConnexion" type="email" placeholder="Identifiant" #idCtrl="ngModel">
+
+                <input [(ngModel)]="user.mdpConnexion" id="password" class="inputLogin" name="mdpConnexion" type="password" placeholder="Mot de passe">
+            </div>
+            <div id="lienMdpOublie">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+            <div id="divBoutonLogin">
+                <input type="button" id="btnInscription" value="Inscription" class="btn btn-modifier colorWhite" />
+                <input type="submit" [disabled]="fm.invalid" id="btnConnexion" value="Connexion" class="btn btn-modifier" />
+            </div>
+        </form>
+    </section>
+    <footer>
+    </footer>
+    
+</div>

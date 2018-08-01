@@ -1,0 +1,206 @@
+<div class="search-box">
+        <!-- Barre de recherche *************************************-->
+        <div class="search-bar">
+            <input type="text" class="input-search" [(ngModel)]='critereFiltre' placeholder="Rechercher...">
+            <span class="input-group-btn">
+                <button id="boutonRechercher" class="btn" type="button">Rechercher</button>
+            </span>
+        </div>
+    
+        <!-- Critères de recherche **********************************-->
+        <div class="advance-search">
+            <form>
+                <label for="nbEx">Nombre d'exemplaires</label>
+                <input class="formInput formNumber" type="number" name="points" step="1">
+            </form>
+            <div class="formRaw formSelect" style="width:330px">
+                <label>Niveau(x)</label>
+                <label class="container">6
+                    <sup>ème</sup>
+                    <input type="checkbox" name="interest" value="6">
+                    <span class="checkmark select"></span>
+                </label>
+                <label class="container">5
+                    <sup>ème</sup>
+                    <input type="checkbox" name="interest" value=5>
+                    <span class="checkmark select"></span>
+                </label>
+                <label class="container">4
+                    <sup>ème</sup>
+                    <input type="checkbox" name="interest" value="4">
+                    <span class="checkmark select"></span>
+                </label>
+                <label class="container">3
+                    <sup>ème</sup>
+                    <input type="checkbox" name="interest" value="3">
+                    <span class="checkmark select"></span>
+                </label>
+            </div>
+    
+            <div class="dropdown">
+                <select [(ngModel)]="selectedEditeur" #power="ngModel" id="editeur" class="formInput formSelect" data-width="fit" title="Editeur">
+                    <option *ngFor="let editeur of seriesService.listeEditeurs" [ngValue]="editeur._id">{{ editeur.name }}</option>
+                </select>
+                <select id="collection" class="formInput formSelect" title="Collection">
+                    <option *ngFor="let editeur of seriesService.listeEditeurs" [ngValue]="editeur._id">{{ editeur.collection }}</option>
+                </select>
+            </div>
+        </div>
+    
+        <!-- Date slider ********************************************-->
+        <div id="slider"></div>
+    </div>
+    
+    <div id="zoneSearchResult">
+        <article *ngFor="let s of (serieService.listeSeries); let i = index">
+   <!-- | filtreSeries:critereFiltre-->
+    
+            <!-- Affichage de l'édition ======================================================= -->
+            <div *ngIf="!s.edit" class="ficheContain">
+                <div class="article-left">
+                    <img [src]="s.cover" alt="Couverture du livre">
+                    <div>
+                        <div class="titleArticle">
+                            <h2>{{ s.title }}</h2>
+                            <h3>{{ s.author }}</h3>
+                        </div>
+                        <div class="containMenu">
+                            <ul>
+                                <li>Edition : {{ serieService.listeEditeurs[s.publisher].name }}</li>
+                                <li>Collection : {{ serieService.listeEditeurs[s.publisher].collection[s.collection] }}</li>
+                                <li>ISBN : {{ s.ISBN }}</li>
+                            </ul>
+                            <ul>
+                                <li>Langue : {{ s.language }}</li>
+                                <li>{{ s.pages }} pages</li>
+                                <li>{{ s.publishedDate | date:'dd MM yyyy' }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Menu d'affichage de l'édition ==================================================== -->
+                <div  class="article-right">
+                    <ul>
+                        <li>
+                            <i class="fas fa-plus" title="Ajouter"></i>
+                        </li>
+                        <li>
+                            <i class="fas fa-pencil-alt" title="Modifier" (click)="s.edit = !s.edit"></i>
+                        </li>
+                        <li>
+                            <i class="fas fa-angle-down" title="Ouvrir"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <!-- Formulaire de modification de l'édition ====================================== -->
+            <div *ngIf="s.edit" class="ficheContain">
+                <form  (ngSubmit)="showSubmit(lSeries.listeSeries[i])">
+                    <div class="article-left">
+                        <img [src]="s.cover" alt="Couverture du livre">
+                        <div>
+                            <div class="titleFormulaire">
+                                <input id="title" name="title" [(ngModel)]="s.title" placeholder="Titre du livre">
+                                <input id="auteur" type="text" name="auteur" placeholder="Auteur" [(ngModel)]="s.author">
+                            </div>
+                            <div class="containMenu">
+                                <ul>
+                                    <li>Edition : <input type="text" name="editeur" placeholder="Editeur" [(ngModel)]="s.publisher"></li>
+                                    <li>Collection : <input type="text" name="collection" placeholder="Collection" [(ngModel)]="s.collection"></li>
+                                    <li>ISBN 13 : <input type="text" name="isbn" placeholder="ISBN" [(ngModel)]="s.ISBN"></li>
+                                </ul>
+                                <ul>
+                                    <li>Langue : <input type="text" name="langue" placeholder="Langue" [(ngModel)]="s.language"></li>
+                                    <li><input type="number" name="pages" [(ngModel)]="s.pages"> pages</li>
+                                    <li><input type="text" name="DatePublication" placeholder="Date de publication" [(ngModel)]="s.publishedDate"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Menu de modification de l'édition ================================================ -->
+                <div class="article-right">
+                    <ul>
+                        <li>
+                            <i class="fas fa-plus" title="Ajouter"></i>
+                        </li>
+                        <li>
+                            <!-- <a href [routerLink]="['/series', i]"> -->
+                                <i class="fas fa-times" title="Modifier"></i>
+                            <!-- </a> -->
+                        </li>
+                        <li>
+                            <i class="fas fa-check" title="Enregistrer" (click)="s.edit = !s.edit"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Date slider ********************************************-->
+            <div id="sliderDispo" class="ui1-rangeSlider">
+                <div class="ui1-rangeSlider-container">
+                    <div class="ui1-rangeSlider-innerBar">
+                        <div class="ui1-ruler-scale">
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">sept.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1264%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">oct.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">nov.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">déc.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">janv.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 9.13416%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">févr.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 10.0992%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">mars</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">avr.</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">mai</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">juin</span>
+                                </div>
+                            </div>
+                            <div class="ui1-ruler-tick" style="display: inline-block; width: 1.15536%;">
+                                <div class="ui1-ruler-tick-inner">
+                                    <span class="ui1-ruler-tick-label">juill.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui1-rangeSlider-bar" style="width: 10%; left: 63%;"></div>
+                    <div class="ui1-rangeSlider-bar" style="width: 20%; left: 10%;"></div>
+                </div>
+            </div>
+        </article>
+    </div>

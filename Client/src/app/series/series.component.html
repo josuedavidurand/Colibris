@@ -1,0 +1,214 @@
+
+<div class="search-box">
+    <!-- Barre de recherche *************************************-->
+    <div class="search-bar">
+        <input type="text" class="input-search" [(ngModel)]='critereFiltre' placeholder="Rechercher...">
+        <span class="input-group-btn">
+            <button id="boutonRechercher" class="btn" type="button">Rechercher</button>
+        </span>
+    </div>
+    <a  href routerLink="/creationSerie" ><i id="ajout" class="fas fa-plus" title="Ajouter une série"></i></a>
+    <!-- Critères de recherche **********************************-->
+    <div class="advance-search">
+        <form>
+            <label for="nbEx">Nombre d'exemplaires</label>
+            <input class="formInput formNumber" type="number" name="nbEx" [(ngModel)]='nbExemplaires' [value]="20" step="1">
+        </form>
+        <div class="formRaw formSelect" style="width:330px">
+            <label>Niveau(x)</label>
+            <label class="container">6<sup>ème</sup>
+                <input type="checkbox" name="interest" value="6">
+                <span class="checkmark select"></span>
+            </label>
+            <label class="container">5<sup>ème</sup>
+                <input type="checkbox" name="interest" value=5>
+                <span class="checkmark select"></span>
+            </label>
+            <label class="container">4<sup>ème</sup>
+                <input type="checkbox" name="interest" value="4">
+                <span class="checkmark select"></span>
+            </label>
+            <label class="container">3<sup>ème</sup>
+                <input type="checkbox" name="interest" value="3">
+                <span class="checkmark select"></span>
+            </label>
+        </div>
+
+        <div class="dropdown">
+            <!-- <select [(ngModel)]="selectedEditeur" #power="ngModel" id="editeur" class="formInput formSelect" data-width="fit" title="Editeur">
+                <option value="" [selected]>Choisissez un éditeur</option>
+                <option *ngFor="let editeur of seriesService.listeEditeurs" [ngValue]="editeur._id">{{ editeur.name }}</option>
+            </select>
+            <select id="collection" class="formInput formSelect" title="Collection">
+                <option value="" [selected]>Choisissez une collection</option>
+                <option *ngFor="let editeur of seriesService.listeEditeurs" [ngValue]="editeur._id">{{ editeur.collection }}</option>
+            </select>
+            <select [(ngModel)]='critereLangue'>
+                <option value="" [selected]>Choisissez une langue</option>
+            <option *ngFor="let langue of (seriesService.listeLangues )">{{langue}}</option>
+        </select> -->
+        <select [(ngModel)]='critereEditeur'>
+            <!-- <option [selected]>Editeur</option> -->
+            <option value="" [selected]>Choisissez un éditeur</option>
+            <option *ngFor="let edition of (seriesService.listeEditions | filtreSeries:critereFiltre | filtreEditions:critereCollection | filtreLangues:critereLangue)" [ngValue]="seriesService.listeEditeurs[edition.publisher].name">{{seriesService.listeEditeurs[edition.publisher].name}}</option>
+        </select>
+        <select [(ngModel)]='critereCollection'>
+            <option value="" [selected]>Choisissez une collection</option>
+            <option *ngFor="let edition of (seriesService.listeEditions | filtreSeries:critereFiltre | filtreEditions:critereEditeur | filtreLangues:critereLangue)">{{seriesService.listeEditeurs[edition.publisher].collection}}</option>
+        </select>
+        <select [(ngModel)]='critereLangue'>
+                <option value="" [selected]>Choisissez une langue</option>
+            <option *ngFor="let langue of (seriesService.listeLangues )">{{langue}}</option>
+        </select>
+        </div>
+    </div>
+    
+    <!-- Date slider ********************************************-->
+    <div id="slider"></div>
+</div>
+
+<div id="zoneSearchResult">
+    <!-- <article *ngFor="let edition of (seriesService.listeEditions | filtreSeries:critereFiltres ); let i = index"> -->
+            <article *ngFor="let edition of (seriesService.listeEditions | filtreSeries:critereFiltre | filtreEditions:critereEditeur | filtreEditions:critereCollection | filtreLangues:critereLangue | nbExemplairesEditionPipe:nbExemplaires); let i = index">
+        <!--   -->
+        <div class="ficheContain">
+            <div class="article-left">
+                <img [src]="edition.cover" alt="Couverture du livre">
+                <div>
+                    <div class="titleArticle">
+                        <h2>{{ edition.title }}</h2>
+                        <p>{{ edition.author }}</p>
+                    </div>
+                    <div class="containMenu">
+                        <ul>
+                            <li>Edition : {{ seriesService.listeEditeurs[edition.publisher].name }}</li>
+                            <li>Collection : {{ seriesService.listeEditeurs[edition.publisher].collection[edition.collection] }}</li>
+                            <li>ISBN : {{ edition.ISBN }}</li>
+                        </ul>
+                        <ul>
+                            <li>Langue : {{ edition.language }}</li>
+                            <li>{{ edition.pages }} pages</li>
+                            <li>Date de publication : {{ edition.publishedDate | date:'dd/MM/yyyy' }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="article-right">
+                <ul>
+                    <li><a href [routerLink]="['/series', i]"><i class="fas fa-pencil-alt" title="Modifier"></i></a></li>
+                    <li><a href (click)="confirmSuppr('i')" ><i class="fas fa-trash-alt"></i></a></li>
+                    <li><a><i class="fas fa-angle-down" title="Ouvrir"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Date slider ********************************************-->
+        <div id="sliderDispo" class="ui1-rangeSlider">
+            <div class="ui1-rangeSlider-container">
+                <div class="ui1-rangeSlider-innerBar">
+                    <div class="ui1-ruler-scale">
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">sept.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1264%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">oct.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">nov.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">déc.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">janv.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 9.13416%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">févr.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 10.0992%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">mars</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">avr.</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">mai</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">juin</span></div>
+                        </div>
+                        <div class="ui1-ruler-tick" style="display: inline-block; width: 1.15536%;">
+                            <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">juill.</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui1-rangeSlider-bar" style="width: 10%; left: 63%;"></div>
+                <div class="ui1-rangeSlider-bar" style="width: 20%; left: 10%;"></div>
+            </div>
+        </div>
+
+        <div class="article-complement">
+                <!-- colleges -->
+                <div *ngFor="let serie of (edition.series | nbExemplairesSeriePipe:nbExemplaires); let i = index" class="collegeContain">
+                    <div class="college">
+                        <p>College {{ collegesService.listeColleges[serie.college].name }}</p>
+                        <div style="display: flex; width: 50%; justify-content: space-between">
+                            <p>{{ serie.quantite }} exemplaires</p>
+                            <ul class="classes" style="display: flex">
+                                <li [ngStyle]="{ 'background-color':serie.niveau.indexOf(6) >=0 ? 'green' : '' }">6&#7497;</li>
+                                <li [ngStyle]="{ 'background-color':serie.niveau.indexOf(5) >=0 ? 'green' : '' }">5&#7497;</li>
+                                <li [ngStyle]="{ 'background-color':serie.niveau.indexOf(4) >=0 ? 'green' : '' }">4&#7497;</li>
+                                <li [ngStyle]="{ 'background-color':serie.niveau.indexOf(3) >=0 ? 'green' : '' }">3&#7497;</li>
+                            </ul>
+                            <p>25 km</p>
+                            <p>20 min</p>
+                        </div>
+                    </div>
+
+                    <!-- Date slider ********************************************-->
+                    <div class="ui1-rangeSlider">
+                        <div class="ui1-rangeSlider-container">
+                            <div class="ui1-rangeSlider-innerBar">
+                                <div class="ui1-ruler-scale">
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">sept.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1264%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">oct.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">nov.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">déc.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">janv.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 9.13416%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">févr.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 10.0992%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">mars</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">avr.</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 10.1128%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">mai</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 9.7866%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">juin</span></div>
+                                    </div>
+                                    <div class="ui1-ruler-tick" style="display: inline-block; width: 1.15536%;">
+                                        <div class="ui1-ruler-tick-inner"><span class="ui1-ruler-tick-label">juill.</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui1-rangeSlider-bar" style="width: 10%; left: 63%;"></div>
+                            <div class="ui1-rangeSlider-bar" style="width: 14%; left: 10%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </article>
+</div>

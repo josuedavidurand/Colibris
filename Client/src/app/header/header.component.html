@@ -1,0 +1,84 @@
+<header *ngIf="authService.connected" id="header">
+    <nav class="main" id="mainMenu">
+        <div>
+            <a id="lienLogo" routerLink="/" title="Accueil">
+                <img src="./assets/images/coLibris-header.png">
+            </a>
+            <h1>{{title}}</h1>
+        </div>
+        <!-- Menu professeur -->
+        <ul *ngIf="authService.prof">
+            <li>
+                <a routerLink="/series" title="Chercher une série dans l'application">
+                <i class="fas fa-search"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/" title="Tableau de bord - Statut">
+                <i class="fas fa-book"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/parametres" title="Paramètres">
+                <i class="fas fa-cog"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/" title="Déconnexion">
+                <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Menu documentaliste -->
+        <ul *ngIf="authService.docu">
+            <li>
+                <a routerLink="/series" title="Chercher une série dans l'application">
+                <i class="fas fa-search"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/requetes" title="Gestion des demandes">
+                <i class="fas fa-comments"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/tabBord" title="Tableau de bord - Statut">
+                <i class="fas fa-book"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/parametres" title="Paramètres">
+                <i class="fas fa-cog"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/" title="Déconnexion">
+                <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Menu administrateur -->
+        <ul *ngIf="authService.admin">
+            <li>
+                <a routerLink="/" title="Tableau de bord - Statut">
+                <i class="fas fa-book"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/parametres.html" title="Paramètres">
+                <i class="fas fa-cog"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/utilisateurs" title="Utilisateurs">
+                <i class="fas fa-users"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/" title="Déconnexion">
+                <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

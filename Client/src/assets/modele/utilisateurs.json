@@ -1,0 +1,76 @@
+[
+    {
+    "_id": {
+        "$oid": "5b3a27fee7179a1ccf3af35e"
+    },
+    "civility": "M",
+    "lastName": "petter pan",
+    "firstName": "Biduleman",
+    "email": "pdusgfuipdgdfpiusd@gmailms.com",
+    "password": "",
+    "profil": "documentaliste",
+    "colleges_extId": [
+        {
+            "$oid": "5b31eeabe7179a5b7ab9cd48"
+        },
+        {
+            "$oid": "5b31eeabe7179a5b7ab9cd48"
+        }
+    ]
+},
+{
+    "_id": {
+        "$oid": "5b3a50d659b9d13a40afea22"
+    },
+    "civility": "M",
+    "lastName": "petter pan",
+    "firstName": "Toastman",
+    "email": "toastman@mail.com",
+    "password": "password",
+    "profil": "documentaliste",
+    "colleges_extId": {
+        "$oid": "5b2ca354fb6fc033f88a0cdc"
+    },
+    "__v": 0
+},
+{
+    "_id": {
+        "$oid": "5b3b3519b4ee081bb45aac98"
+    },
+    "colleges_extId": [
+        {
+            "$oid": "5b2ca354fb6fc033f88a0cdc"
+        },
+        {
+            "$oid": "5b3a50d659b9d13a40afea22"
+        }
+    ],
+    "civility": "M",
+    "lastName": "petter pan",
+    "firstName": "Toastman",
+    "email": "toastman@mail.com",
+    "password": "password",
+    "profil": "documentaliste",
+    "__v": 0
+},
+{
+    "_id": {
+        "$oid": "5b3b367fb4ee081bb45aac99"
+    },
+    "colleges_extId": [
+        {
+            "$oid": "5b2ca354fb6fc033f88a0cdc"
+        },
+        {
+            "$oid": "5b3a50d659b9d13a40afea22"
+        }
+    ],
+    "civility": "M",
+    "lastName": "petter pan",
+    "firstName": "Toastman",
+    "email": "toastman@mail.com",
+    "password": "password",
+    "profil": "documentaliste",
+    "__v": 0
+}
+]
